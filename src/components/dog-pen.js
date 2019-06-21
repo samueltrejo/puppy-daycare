@@ -9,8 +9,11 @@ class DogPen extends React.Component {
       <Dog key={dog.id} dog={dog} />
     ));
     return (
-      <div className="d-flex flex-wrap">
-        { createDogs }
+      <div className="puppies-container">
+        <div className="display-4 text-center">Puppies</div>
+        <div id="puppies" className="d-flex flex-wrap">
+          { createDogs }
+        </div>
       </div>
     );
   }

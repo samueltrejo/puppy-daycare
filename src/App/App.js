@@ -18,7 +18,6 @@ class App extends React.Component {
     const { dogs } = this.state;
     return (
       <div className="App">
-        <div>Puppies</div>
         <DogPen dogs={dogs}/>
       </div>
     );
