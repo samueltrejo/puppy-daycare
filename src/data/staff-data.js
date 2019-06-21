@@ -10,7 +10,7 @@ const staff = [
     id: 'staff2',
     name: 'Mario',
     sallary: 200007,
-    image: 'https://mario.nintendo.com/assets/img/home/char-mario.png',
+    image: 'https://uppersaddleriverlibrary.org/wp-content/uploads/2019/04/Mario.png',
     position: 'Chief Executive Officer',
   },
   {
