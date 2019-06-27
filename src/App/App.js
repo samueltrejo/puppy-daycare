@@ -1,29 +1,26 @@
 import React from 'react';
 
-import DogPen from '../components/dog-pen';
-import dogsData from '../data/dogs-data';
-import StaffRoom from '../components/staff-room';
-import staffData from '../data/staff-data';
+import Navbar from '../components/navbar';
+import Auth from '../components/auth';
+// import Home from '../components/home';
 
 import './App.scss';
 
 class App extends React.Component {
   state = {
-    dogs: [],
-    staff: [],
+    authed: false,
   }
 
   componentDidMount() {
-    this.setState({ dogs: dogsData, staff: staffData });
+
   }
 
   render() {
-    const { dogs } = this.state;
-    const { staff } = this.state;
+    // const { authed } = this.state;
     return (
       <div className="App">
-        <DogPen dogs={dogs}/>
-        <StaffRoom staff ={staff}/>
+        <Navbar />
+        <Auth />
       </div>
     );
   }
