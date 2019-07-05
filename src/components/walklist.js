@@ -42,16 +42,29 @@ class Walklist extends React.Component {
       employeeId: staff.find(employeeCopy => employeeCopy.name === employeeOption).id,
       date: dateInput,
     };
+    if (event.target.value === '') {
+      walksData.addWalk(walk)
+        .then(() => this.getWalks())
+        .catch(error => console.error(error));
+    } else {
+      walksData.editWalk(event.target.value, walk)
+        .then(() => this.getWalks())
+        .catch(error => console.error(error));
+    }
     $('#add-walk-form').modal('hide');
-    walksData.addWalk(walk)
-      .then(() => this.getWalks())
-      .catch(error => console.error(error));
+  }
+
+  prepareEditForm = (walkId, date, dogName, employeeName) => {
+    this.setState({ dateInput: date, dogOption: dogName, employeeOption: employeeName });
+    $('#walk-date-input').val(date);
+    $('#add-walk-btn').val(walkId);
   }
 
   componentDidMount() {
     $('#add-walk-form').on('hidden.bs.modal', () => {
       this.setState({ dogOption: 'choose a dog', employeeOption: 'choose an employee' });
       $('#walk-date-input').val('');
+      $('#add-walk-btn').val('');
     });
 
     this.getWalks();
@@ -78,7 +91,7 @@ class Walklist extends React.Component {
       if (dogs.length && staff.length) {
         const dog = dogs.find(dogCopy => dogCopy.id === walk.dogId);
         const employee = staff.find(employeeCopy => employeeCopy.id === walk.employeeId);
-        return <Walk key={walk.id} walk={walk} dog={dog} employee={employee} />;
+        return <Walk key={walk.id} walk={walk} dog={dog} employee={employee} prepareEditForm={this.prepareEditForm} />;
       }
       return [];
     });
@@ -127,7 +140,7 @@ class Walklist extends React.Component {
                 <input id="walk-date-input" type="text" className="form-control mt-3" placeholder='Add Date/Time' onKeyUp={this.saveDateInput}/>
               </div>
               <div className="modal-footer justify-content-center border-0">
-                <button id="add-movie" type="button" className="btn btn-dark rounded-0 px-4" onClick={this.saveWalk}>Save Walk</button>
+                <button id="add-walk-btn" type="button" className="btn btn-dark rounded-0 px-4" value="" onClick={this.saveWalk}>Save Walk</button>
               </div>
             </div>
           </div>
