@@ -19,11 +19,12 @@ class Navbar extends React.Component {
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-              <div className="navbar-nav">
                 {authed ? (
-                  <button id="navToBio" className="btn btn-dark" onClick={this.logoutClickEvent}>Logout</button>
-                ) : ('')}
-              </div>
+                  <div className="navbar-nav">
+                    <button type="dark" className="btn btn-dark" data-toggle="modal" data-target="#add-walk-form">Add Walk</button>
+                    <button className="btn btn-dark" onClick={this.logoutClickEvent}>Logout</button>
+                  </div>
+                ) : (<div className="navbar-nav"></div>)}
             </div>
           </div>
         </nav>
