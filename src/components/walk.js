@@ -13,7 +13,7 @@ class Walk extends React.Component {
           <div className="card-body">
             <div className="d-flex">
               <h5 className="card-title pr-2">{walk.date}</h5>
-              <i class="edit-walk fas fa-edit"></i>
+              <i className="edit-walk fas fa-edit"></i>
             </div>
             <p className="card-text">{`${employee.name} to walk ${dog.name} on ${walk.date}`}</p>
           </div>
