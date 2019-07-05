@@ -1,6 +1,10 @@
 import React from 'react';
 
 class Walk extends React.Component {
+  prepareEditForm = () => {
+    this.props.prepareEditForm(this.props.walk.id, this.props.walk.date, this.props.dog.name, this.props.employee.name);
+  };
+
   render() {
     const { walk, dog, employee } = this.props;
     return (
@@ -13,7 +17,7 @@ class Walk extends React.Component {
           <div className="card-body">
             <div className="d-flex">
               <h5 className="card-title pr-2">{walk.date}</h5>
-              <i className="edit-walk fas fa-edit"></i>
+              <i className="edit-walk fas fa-edit" data-toggle="modal" data-target="#add-walk-form" onClick={this.prepareEditForm}></i>
             </div>
             <p className="card-text">{`${employee.name} to walk ${dog.name} on ${walk.date}`}</p>
           </div>
