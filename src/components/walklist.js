@@ -12,7 +12,11 @@ class Walklist extends React.Component {
     walks: [],
     dogOption: 'choose a dog',
     employeeOption: 'choose an employee',
-    dateInput: 'Add Date/Time',
+    dateInput: '',
+  }
+
+  saveDateInput = (event) => {
+    this.setState({ dateInput: event.target.value });
   }
 
   getWalks = () => {
@@ -29,9 +33,25 @@ class Walklist extends React.Component {
     }
   }
 
+  saveWalk = (event) => {
+    event.preventDefault();
+    const { dogOption, employeeOption, dateInput } = this.state;
+    const { dogs, staff } = this.props;
+    const walk = {
+      dogId: dogs.find(dogCopy => dogCopy.name === dogOption).id,
+      employeeId: staff.find(employeeCopy => employeeCopy.name === employeeOption).id,
+      date: dateInput,
+    };
+    $('#add-walk-form').modal('hide');
+    walksData.addWalk(walk)
+      .then(() => this.getWalks())
+      .catch(error => console.error(error));
+  }
+
   componentDidMount() {
     $('#add-walk-form').on('hidden.bs.modal', () => {
-      this.setState({ dogOption: 'choose a dog', employeeOption: 'choose an employee', dateInput: 'Add Date/Time' });
+      this.setState({ dogOption: 'choose a dog', employeeOption: 'choose an employee' });
+      $('#walk-date-input').val('');
     });
 
     this.getWalks();
@@ -46,7 +66,6 @@ class Walklist extends React.Component {
       walks,
       dogOption,
       employeeOption,
-      dateInput,
     } = this.state;
     const { dogs, staff } = this.props;
     const dogOptions = dogs.map(dog => (
@@ -105,10 +124,10 @@ class Walklist extends React.Component {
                   </div>
                 </div>
 
-                <input id="movie-image-input" type="text" className="form-control mt-3" placeholder={dateInput} />
+                <input id="walk-date-input" type="text" className="form-control mt-3" placeholder='Add Date/Time' onKeyUp={this.saveDateInput}/>
               </div>
               <div className="modal-footer justify-content-center border-0">
-                <button id="add-movie" type="button" className="btn btn-dark rounded-0 px-4" data-dismiss="modal">Save Movie</button>
+                <button id="add-movie" type="button" className="btn btn-dark rounded-0 px-4" onClick={this.saveWalk}>Save Walk</button>
               </div>
             </div>
           </div>
