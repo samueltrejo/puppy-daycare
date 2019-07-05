@@ -54,6 +54,12 @@ class Walklist extends React.Component {
     $('#add-walk-form').modal('hide');
   }
 
+  deleteWalk = (walkId) => {
+    walksData.deleteWalk(walkId)
+      .then(() => this.getWalks())
+      .catch(error => console.error(error));
+  }
+
   prepareEditForm = (walkId, date, dogName, employeeName) => {
     this.setState({ dateInput: date, dogOption: dogName, employeeOption: employeeName });
     $('#walk-date-input').val(date);
@@ -91,7 +97,7 @@ class Walklist extends React.Component {
       if (dogs.length && staff.length) {
         const dog = dogs.find(dogCopy => dogCopy.id === walk.dogId);
         const employee = staff.find(employeeCopy => employeeCopy.id === walk.employeeId);
-        return <Walk key={walk.id} walk={walk} dog={dog} employee={employee} prepareEditForm={this.prepareEditForm} />;
+        return <Walk key={walk.id} walk={walk} dog={dog} employee={employee} prepareEditForm={this.prepareEditForm} deleteWalk={this.deleteWalk} />;
       }
       return [];
     });

@@ -5,6 +5,10 @@ class Walk extends React.Component {
     this.props.prepareEditForm(this.props.walk.id, this.props.walk.date, this.props.dog.name, this.props.employee.name);
   };
 
+  deleteWalk = () => {
+    this.props.deleteWalk(this.props.walk.id);
+  }
+
   render() {
     const { walk, dog, employee } = this.props;
     return (
@@ -17,7 +21,8 @@ class Walk extends React.Component {
           <div className="card-body">
             <div className="d-flex">
               <h5 className="card-title pr-2">{walk.date}</h5>
-              <i className="edit-walk fas fa-edit" data-toggle="modal" data-target="#add-walk-form" onClick={this.prepareEditForm}></i>
+              <i className="cursor-pointer fas fa-edit pr-2" data-toggle="modal" data-target="#add-walk-form" onClick={this.prepareEditForm}></i>
+              <i className="cursor-pointer fas fa-trash" onClick={this.deleteWalk}></i>
             </div>
             <p className="card-text">{`${employee.name} to walk ${dog.name} on ${walk.date}`}</p>
           </div>
