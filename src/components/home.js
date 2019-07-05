@@ -5,12 +5,12 @@ import staffData from '../helpers/data/staff-data';
 
 import DogPen from './dog-pen';
 import StaffRoom from './staff-room';
+import WalkList from './walklist';
 
 class Home extends React.Component {
   state = {
     dogs: [],
     staff: [],
-    // walks: [],
   }
 
   getDogs = () => {
@@ -34,6 +34,7 @@ class Home extends React.Component {
     const { dogs, staff } = this.state;
     return (
       <div className="Home">
+        <WalkList dogs={dogs} staff={staff}/>
         <DogPen dogs={dogs} />
         <StaffRoom staff={staff} />
       </div>
